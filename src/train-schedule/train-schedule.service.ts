@@ -17,6 +17,8 @@ export class TrainScheduleService {
         ...createTrainScheduleDto,
       },
     });
+    delete newTrainSchedule.userId;
+    delete newTrainSchedule.createdAt;
 
     return {
       status: `success`,
@@ -123,6 +125,9 @@ export class TrainScheduleService {
     const deletedTrainSchedule = await this.prisma.trainSchedule.delete({
       where: { id, userId },
     });
+
+    delete deletedTrainSchedule.userId;
+    delete deletedTrainSchedule.createdAt;
 
     return {
       status: `success`,
