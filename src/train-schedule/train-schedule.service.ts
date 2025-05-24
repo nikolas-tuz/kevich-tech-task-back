@@ -50,9 +50,9 @@ export class TrainScheduleService {
         where: whereClause,
         skip: (page - 1) * limit,
         take: limit,
-        // This is done to exclude userId prop.
+        // This is done to exclude userId & createdAt prop.
         // Unfortunately, there is no
-        // way I can just exclude it without specifying entire all objects I do want to include.
+        // way I can just exclude it without specifying all objects I do want to include. BUT PRISMA IS STILL SO COOL! (C) Nikolas Tuz 😎
         select: {
           id: true,
           trainNumber: true,
@@ -60,7 +60,6 @@ export class TrainScheduleService {
           arrivalStation: true,
           departureTime: true,
           arrivalTime: true,
-          createdAt: true,
           status: true,
         },
       })) || [];
