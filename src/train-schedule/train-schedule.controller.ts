@@ -6,12 +6,16 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
 import { TrainScheduleService } from './train-schedule.service';
 import { CreateTrainScheduleDto } from './dto/create-train-schedule.dto';
-import { UpdateTrainScheduleDto } from './dto/update-train-schedule.dto';
+import {
+  UpdateTrainScheduleDto,
+  UpdateTrainScheduleDtoPartial,
+} from './dto/update-train-schedule.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser, CurrentUserType } from '../auth/current-user.decorator';
 import { FindAllQueryDto } from '../auth/dto/find-all-query.dto';
@@ -45,16 +49,34 @@ export class TrainScheduleController {
     return this.trainScheduleService.findOne(id, user.id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateTrainScheduleDto: UpdateTrainScheduleDto,
+    @CurrentUser() user: CurrentUserType,
   ) {
-    return this.trainScheduleService.update(+id, updateTrainScheduleDto);
+    return this.trainScheduleService.update(
+      id,
+      updateTrainScheduleDto,
+      user.id,
+    );
+  }
+
+  @Patch(':id')
+  updateSome(
+    @Param('id') id: string,
+    @Body() updateTrainScheduleDto: UpdateTrainScheduleDtoPartial,
+    @CurrentUser() user: CurrentUserType,
+  ) {
+    return this.trainScheduleService.update(
+      id,
+      updateTrainScheduleDto,
+      user.id,
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.trainScheduleService.remove(+id);
+  remove(@Param('id') id: string, @CurrentUser() user: CurrentUserType) {
+    return this.trainScheduleService.remove(id, user.id);
   }
 }

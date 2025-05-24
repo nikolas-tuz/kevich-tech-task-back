@@ -1,6 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTrainScheduleDtoForService } from './dto/create-train-schedule.dto';
-import { UpdateTrainScheduleDto } from './dto/update-train-schedule.dto';
+import {
+  UpdateTrainScheduleDto,
+  UpdateTrainScheduleDtoPartial,
+} from './dto/update-train-schedule.dto';
 import { PrismaClient } from 'generated/prisma';
 import { FindAllQueryDto } from '../auth/dto/find-all-query.dto';
 
@@ -59,15 +62,56 @@ export class TrainScheduleService {
     };
   }
 
-  findOne(id: string, userId: string) {
-    return `some string`;
+  async findOne(id: string, userId: string) {
+    const trainSchedule = await this.prisma.trainSchedule.findFirst({
+      where: { userId, id },
+    });
+
+    if (!trainSchedule)
+      throw new NotFoundException(
+        `The train schedule with id ${id} was not found.`,
+      );
+
+    return {
+      status: `success`,
+      data: { trainSchedule },
+    };
   }
 
-  update(id: number, updateTrainScheduleDto: UpdateTrainScheduleDto) {
-    return `This action updates a #${id} trainSchedule`;
+  async update(
+    id: string,
+    updateTrainScheduleDto:
+      | UpdateTrainScheduleDto
+      | UpdateTrainScheduleDtoPartial,
+    userId: string,
+  ) {
+    // if the schedule was not found, the error is guaranteed to be thrown because of "findOne" 😎.
+    await this.findOne(id, userId);
+
+    const updatedTrainSchedule = await this.prisma.trainSchedule.update({
+      where: { id, userId },
+      data: { ...updateTrainScheduleDto },
+    });
+
+    return {
+      status: `success`,
+      data: { trainSchedule: updatedTrainSchedule },
+      message: `The train schedule was successfully updated.`,
+    };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} trainSchedule`;
+  async remove(id: string, userId: string) {
+    // ROUND 2: if the schedule was not found, the error is guaranteed to be thrown because of "findOne" 😎.
+    await this.findOne(id, userId);
+
+    const deletedTrainSchedule = await this.prisma.trainSchedule.delete({
+      where: { id, userId },
+    });
+
+    return {
+      status: `success`,
+      data: { trainSchedule: deletedTrainSchedule },
+      message: `The train schedule was successfully deleted!`,
+    };
   }
 }
