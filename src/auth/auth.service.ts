@@ -44,6 +44,9 @@ export class AuthService {
       },
     });
 
+    // I do not want to expose the password to outside.
+    delete newUser.password;
+
     const accessToken = this.generateToken({ email, id: newUser.id });
 
     return {
@@ -70,6 +73,9 @@ export class AuthService {
     }
 
     const accessToken = this.generateToken({ email, id: user.id });
+
+    // I do not want to expose the password to outside.
+    delete user.password;
 
     return {
       status: `success`,
