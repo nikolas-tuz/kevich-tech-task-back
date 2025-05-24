@@ -33,6 +33,8 @@ export class TrainScheduleService {
       OR?: {
         departureStation?: { contains: string; mode?: 'insensitive' };
         arrivalStation?: { contains: string; mode?: 'insensitive' };
+        departureTime?: { contains: string };
+        arrivalTime?: { contains: string };
       }[];
     } = { userId };
 
@@ -40,8 +42,10 @@ export class TrainScheduleService {
 
     if (searchTerm) {
       whereClause.OR = [
-        { departureStation: { contains: searchTerm } },
-        { arrivalStation: { contains: searchTerm } },
+        { departureStation: { contains: searchTerm, mode: 'insensitive' } },
+        { arrivalStation: { contains: searchTerm, mode: 'insensitive' } },
+        { departureTime: { contains: searchTerm } },
+        { arrivalTime: { contains: searchTerm } },
       ];
     }
 
@@ -50,9 +54,6 @@ export class TrainScheduleService {
         where: whereClause,
         skip: (page - 1) * limit,
         take: limit,
-        // This is done to exclude userId & createdAt prop.
-        // Unfortunately, there is no
-        // way I can just exclude it without specifying all objects I do want to include. BUT PRISMA IS STILL SO COOL! (C) Nikolas Tuz 😎
         select: {
           id: true,
           trainNumber: true,
