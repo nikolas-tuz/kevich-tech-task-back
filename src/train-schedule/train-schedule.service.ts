@@ -50,6 +50,19 @@ export class TrainScheduleService {
         where: whereClause,
         skip: (page - 1) * limit,
         take: limit,
+        // This is done to exclude userId prop.
+        // Unfortunately, there is no
+        // way I can just exclude it without specifying entire all objects I do want to include.
+        select: {
+          id: true,
+          trainNumber: true,
+          departureStation: true,
+          arrivalStation: true,
+          departureTime: true,
+          arrivalTime: true,
+          createdAt: true,
+          status: true,
+        },
       })) || [];
 
     const trainScheduleCount = await this.prisma.trainSchedule.count({
