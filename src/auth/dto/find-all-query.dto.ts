@@ -4,7 +4,7 @@ import { AvailableStatusesEnum } from '../../train-schedule/enums/available-stat
 
 export class FindAllQueryDto {
   @Type(() => Number)
-  @Min(0)
+  @Min(1)
   page: number;
 
   @Type(() => Number)

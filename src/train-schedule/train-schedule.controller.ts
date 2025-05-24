@@ -41,8 +41,8 @@ export class TrainScheduleController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.trainScheduleService.findOne(+id);
+  findOne(@Param('id') id: string, @CurrentUser() user: CurrentUserType) {
+    return this.trainScheduleService.findOne(id, user.id);
   }
 
   @Patch(':id')

@@ -45,11 +45,13 @@ export class TrainScheduleService {
     const trainSchedules =
       (await this.prisma.trainSchedule.findMany({
         where: whereClause,
-        skip: page * limit,
+        skip: (page - 1) * limit,
         take: limit,
       })) || [];
 
-    const trainScheduleCount = await this.prisma.trainSchedule.count();
+    const trainScheduleCount = await this.prisma.trainSchedule.count({
+      where: whereClause,
+    });
 
     return {
       status: `success`,
@@ -57,8 +59,8 @@ export class TrainScheduleService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} trainSchedule`;
+  findOne(id: string, userId: string) {
+    return `some string`;
   }
 
   update(id: number, updateTrainScheduleDto: UpdateTrainScheduleDto) {
