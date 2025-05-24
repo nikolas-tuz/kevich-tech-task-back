@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JWTPayloadDto } from './dto/JWTPayload.dto';
 import { sign } from 'jsonwebtoken';
@@ -28,10 +32,7 @@ export class AuthService {
     });
 
     if (user) {
-      return {
-        status: `fail`,
-        data: { error: `Email is already taken.` },
-      };
+      throw new NotFoundException(`Email is already in use.`);
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
@@ -62,10 +63,7 @@ export class AuthService {
     });
 
     if (!user) {
-      return {
-        status: `fail`,
-        data: { error: `Invalid email or password.` },
-      };
+      throw new NotFoundException(`Invalid email or password.`);
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
