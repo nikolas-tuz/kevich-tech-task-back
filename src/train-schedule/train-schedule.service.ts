@@ -24,8 +24,8 @@ export class TrainScheduleService {
     };
   }
 
-  // INFO: This implementation does not allow advanced filtering options because of prisma limits.
-  //  I did conclude that I can actually try to use native SQL syntax to fix it,
+  // INFO to kevich reviewer 😎: This implementation does not allow advanced filtering options because of prisma limits.
+  //  I did conclude that the solution would be to use native SQL syntax to fix it,
   //  the cost would be the readability of the code, though :D
   async findAll(userId: string, findAllQueryDto: FindAllQueryDto) {
     const { searchTerm, status, page, limit } = findAllQueryDto;
