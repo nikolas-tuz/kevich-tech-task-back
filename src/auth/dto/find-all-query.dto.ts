@@ -18,4 +18,12 @@ export class FindAllQueryDto {
   @IsOptional()
   @IsEnum(AvailableStatusesEnum)
   status: string;
+
+  @IsOptional()
+  @IsEnum([`desc`, `asc`])
+  order: string;
+
+  @IsOptional()
+  @IsEnum([`trainNumber`, `createdAt`])
+  sortBy: string;
 }

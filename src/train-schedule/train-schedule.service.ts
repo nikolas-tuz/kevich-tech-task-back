@@ -26,11 +26,11 @@ export class TrainScheduleService {
     };
   }
 
-  // INFO to kevich reviewer 😎: This implementation does not allow advanced filtering options because of prisma limits.
+  // INFO to kevych reviewer 😎: This implementation does not allow advanced filtering options because of prisma limits.
   //  I did conclude that the solution would be to use native SQL syntax to fix it,
   //  the cost would be the readability of the code, though :D
   async findAll(userId: string, findAllQueryDto: FindAllQueryDto) {
-    const { searchTerm, status, page, limit } = findAllQueryDto;
+    const { searchTerm, status, page, limit, sortBy, order } = findAllQueryDto;
 
     const whereClause: {
       userId: string;
@@ -42,6 +42,8 @@ export class TrainScheduleService {
         arrivalTime?: { contains: string };
       }[];
     } = { userId };
+
+    const orderByClause = sortBy ? { [sortBy]: order } : undefined;
 
     if (status) whereClause.status = status;
 
@@ -59,6 +61,7 @@ export class TrainScheduleService {
         where: whereClause,
         skip: (page - 1) * limit,
         take: limit,
+        orderBy: orderByClause,
         select: {
           id: true,
           trainNumber: true,
