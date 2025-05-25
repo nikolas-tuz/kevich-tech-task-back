@@ -1,85 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Train Schedule Application
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Привіт Kevych Solutions! 😎 Дякую за таке цікаве, комплексне тестове завдання! Нижче вже на англійській розписав, як запустити цей застосунок. Створив інструкції й нотатки по запуску. Застосунок написаний використовуючи NestJS, Neon Tech Serverless PostgreSQL, PrismaORM, NextJS, MUI і більше. Прошу оцінити якість коду, враховуючи скільки часу було дано на виконання. Я старався писати чистий, реюзабельний код як і на фронті, так і на бекі. Гарного дня! 😍
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Live Demos
 
-## Description
+* **Deployed Front-end (Vercel):** [https://kevich-tech-task-front.vercel.app/](https://kevich-tech-task-front.vercel.app/)
+* **Deployed Backend (Render):** [https://kevich-tech-task-back.onrender.com](https://kevich-tech-task-back.onrender.com)
+    * *Note: The backend is currently on a paid Render plan for optimal viewing. After the tech task review period, it will be moved to a free starter plan, which may result in server hibernation during inactivity.*
+* **Figma UI/UX Design:** [https://www.figma.com/design/cUs4MSK5uQoJaEbh3vvwU8/Kevich-Solutions-Tech-Task--UX-UI-?node-id=1-2&t=eMoqzc9yJBB6sSFw-1](https://www.figma.com/design/cUs4MSK5uQoJaEbh3vvwU8/Kevich-Solutions-Tech-Task--UX-UI-?node-id=1-2&t=eMoqzc9yJBB6sSFw-1)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Project Overview
 
-## Project setup
+This application provides a robust platform for managing train schedules, incorporating features such as:
 
-```bash
-$ npm install
-```
+* **Authorization and Authentication:** Secure user access with JWT-based authentication.
+* **CRUD Operations:** Full functionality to create, read, update, and delete train schedules using GET, POST, PUT, PATCH, and DELETE requests.
+* **Search and Filtering:** A search field is available with `debouncing` for efficient searching and filtering by train statuses with `throttling`.
+* **Pagination:** Proper pagination implementation for managing large datasets.
+* **Cloud Deployment:** Both front-end and back-end are deployed to cloud platforms.
 
-## Compile and run the project
+All main requirements outlined in the technical task have been thoroughly implemented. (Note that the PUT & PATCH requests were created on backend appropriately, but only PUT utilized on front-end).
 
-```bash
-# development
-$ npm run start
+## Technologies Used
 
-# watch mode
-$ npm run start:dev
+### Backend
 
-# production mode
-$ npm run start:prod
-```
+* **Language:** TypeScript 
+* **Server:** Nest.js 
+* **Database:** Neon Tech Serverless PostgreSQL 
+* **ORM:** Prisma ORM
+* **Authentication:** JWT
 
-## Run tests
+...
 
-```bash
-# unit tests
-$ npm run test
+### Database (Neon Tech Serverless PostgreSQL)
 
-# e2e tests
-$ npm run test:e2e
+* **Schema Design:** The database is structured with two main schemas: `users` and `trainSchedules`.
+* **Relationships:** A one-to-many relationship is established between `users` and `trainSchedules`, meaning every new train schedule created is linked to a specific user.
+* **Data Privacy Philosophy:** The chosen design philosophy ensures that `trainSchedules` are private. Users can only access and manage their own train schedules, and cannot view other users' schedules. While an alternative approach using technologies like WebSocket connections could allow for broader visibility of all posted train schedules, this implementation prioritizes individual user data privacy.
 
-# test coverage
-$ npm run test:cov
-```
+### Front-end
 
-## Resources
+* **Framework:** React.js (Next.js) 
+* **Form Validation:** Zod
+* **UI Library:** Material-UI (MUI) & My Custom Components
+* **API Interface** Postman
 
-Check out a few resources that may come in handy when working with NestJS:
+...
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## API Endpoints
 
-## Support
+The backend exposes the following API endpoints:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Auth
+* `POST /users/register` - Create a new user
+* `POST /users/login` - Log in a user
 
-## Stay in touch
+### Train Schedule
+* `GET /train-schedule?page=1&limit=10` - Get paginated train schedules for the authenticated user
+    * *Note: you can also chain query params like "&status" and "&searchTerm" for filtering options*
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+* `GET /train-schedule/:id` - Get a specific train schedule by ID
+* `PUT /train-schedule/:id` - Update a train schedule by ID
+* `PATCH /train-schedule/:id` - Partially update a train schedule by ID
+* `DELETE /train-schedule/:id` - Delete a train schedule by ID
+* `POST /train-schedule` - Create a new train schedule
+* `GET /health` - Health check endpoint
 
-## License
+## Getting Started
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Running the Backend
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/nikolas-tuz/kevich-tech-task-back.git](https://github.com/nikolas-tuz/kevich-tech-task-back.git)
+    cd kevich-tech-task-back
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Create a `.env` file** in the root directory and configure the following environment variables:
+    ```
+    PORT=3001
+    JWT_SECRET=YOUR_VERY_SECRET_KEY_HERE(should be the same for front-end)
+    JWT_EXPIRES_AT=8h
+    DATABASE_URL="postgresql://user:password@host:port/database?schema=public"
+    ALLOW_ORIGIN=http://localhost:3000
+    ```
+    * `JWT_SECRET`: A strong, unique secret key for JWT signing.
+    * `JWT_EXPIRES_AT`: The expiration time for JWTs (e.g., `1h`, `7d`).
+    * `DATABASE_URL`: Your PostgreSQL connection string. This project uses Neon Tech serverless PostgreSQL.
+    * `ALLOW_ORIGIN`: allowed origin for CORS(single string).
+4.  **Run database migrations (if any) and generate Prisma client:**
+    ```bash
+    npx prisma migrate dev --name init
+    npx prisma generate
+    ```
+5.  **Start the development server:**
+    ```bash
+    npm run start:dev
+    ```
+    The backend server will typically run on `http://localhost:3001`.
+
+### Running the Front-end
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/nikolas-tuz/kevich-tech-task-front.git](https://github.com/nikolas-tuz/kevich-tech-task-front.git)
+    cd kevich-tech-task-front
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Create a `.env.local` file** in the root directory and configure the following environment variable:
+    ```
+    NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
+    ```
+    * `NEXT_PUBLIC_BACKEND_URL`: The URL of your deployed or local backend server.
+4.  **Create a `.env` file** in the root directory and configure the following environment variable:
+    ```
+    JWT_SECRET=YOUR_VERY_SECRET_KEY_HERE
+    ```
+    * `JWT_SECRET`: This should be the **same secret key** as used in your backend's `JWT_SECRET`.
+5.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+    The front-end application will typically run on `http://localhost:3000`.
+
+## Potential Improvements
+
+* **Responsiveness:** Due to time constraints, the application is not fully responsive across all devices. This would be a key area for future improvement.
+* **Advanced Search:** The current searching implementation using Prisma has limitations. Leveraging native SQL for more complex and performant search queries would be beneficial.
+* **Caching Results:** It would be very noice 😎 to actually cache the train data using e.g. Redis or cache storage on front-end.
+
+Love you, Kevych Solutions!
