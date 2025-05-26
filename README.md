@@ -43,8 +43,9 @@ All main requirements outlined in the technical task have been thoroughly implem
 
 * **Framework:** React.js (Next.js) 
 * **Form Validation:** Zod
+* * **Animations:** Framer Motion & Lottie Animations
 * **UI Library:** Material-UI (MUI) & My Custom Components
-* **API Interface** Postman
+* **API Interface:** Postman
 
 ...
 
