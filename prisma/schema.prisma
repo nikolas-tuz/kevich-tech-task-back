@@ -33,4 +33,6 @@ model TrainSchedule {
   userId           String
   user             User     @relation(fields: [userId], references: [id])
   status           String
+
+  @@index([trainNumber, departureStation, arrivalStation, createdAt, status])
 }
